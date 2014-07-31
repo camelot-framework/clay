@@ -2,6 +2,7 @@ package ru.yandex.qatools.clay;
 
 import org.eclipse.aether.resolution.ArtifactResult;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -81,8 +82,12 @@ public class AetherResult {
             }
 
             @Override
-            public URL convert(ArtifactResult result) throws Exception {
-                return result.getArtifact().getFile().toURI().toURL();
+            public URL convert(ArtifactResult result) throws AetherException {
+                try {
+                    return result.getArtifact().getFile().toURI().toURL();
+                } catch (MalformedURLException e) {
+                    throw new AetherException(e);
+                }
             }
         }, failOnError);
         return urls.toArray(new URL[urls.size()]);
@@ -109,8 +114,12 @@ public class AetherResult {
             }
 
             @Override
-            public String convert(ArtifactResult result) throws Exception {
-                return result.getArtifact().getFile().toURI().toURL().toString();
+            public String convert(ArtifactResult result) throws AetherException {
+                try {
+                    return result.getArtifact().getFile().toURI().toURL().toString();
+                } catch (MalformedURLException e) {
+                    throw new AetherException(e);
+                }
 
             }
         }, failOnError);
@@ -164,8 +173,8 @@ public class AetherResult {
          *
          * @param result to convert
          * @return converted result
-         * @throws Exception if something went wrong
+         * @throws ru.yandex.qatools.clay.AetherException if something went wrong
          */
-        T convert(ArtifactResult result) throws Exception;
+        T convert(ArtifactResult result) throws AetherException;
     }
 }

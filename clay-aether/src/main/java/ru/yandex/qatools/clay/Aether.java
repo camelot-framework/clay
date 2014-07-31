@@ -46,6 +46,8 @@ public class Aether {
     public static final String POM_EXTENSION = "pom";
     public static final String MODEL_VERSION = "4.0.0";
     public static final String JAR = "jar";
+    public static final String POM_XML = "pom.xml";
+    public static final String AETHER_TEMP_FILE_PREFIX = "clay-aether";
 
     private RepositorySystemSession session;
     private RepositorySystem system;
@@ -266,16 +268,8 @@ public class Aether {
             throws AetherException {
         File pom = null;
         try {
-            pom = File.createTempFile("install", "pom.xml");
-            FluentModelBuilder.newPom()
-                    .withGroupId(groupId)
-                    .withArtifactId(artifactId)
-                    .withVersion(version)
-                    .withModelVersion(MODEL_VERSION)
-                    .marshalTo(pom);
+            pom = createPomFile(groupId, artifactId, version);
             install(jar, pom, groupId, artifactId, classifier, extension, version);
-        } catch (IOException e) {
-            throw new AetherException("Can't create temp file for pom.xml", e);
         } finally {
             FileUtils.deleteQuietly(pom);
         }
@@ -337,16 +331,8 @@ public class Aether {
                        String classifier, String extension, String version) throws AetherException {
         File pom = null;
         try {
-            pom = File.createTempFile("install", "pom.xml");
-            FluentModelBuilder.newPom()
-                    .withGroupId(groupId)
-                    .withArtifactId(artifactId)
-                    .withVersion(version)
-                    .withModelVersion(MODEL_VERSION)
-                    .marshalTo(pom);
+            pom = createPomFile(groupId, artifactId, version);
             deploy(distribution, jar, pom, groupId, artifactId, classifier, extension, version);
-        } catch (IOException e) {
-            throw new AetherException("Can't create temp file for pom.xml", e);
         } finally {
             FileUtils.deleteQuietly(pom);
         }
@@ -388,6 +374,31 @@ public class Aether {
             system.deploy(session, deployRequest);
         } catch (DeploymentException e) {
             throw new AetherException("Can't deploy one or more given artifacts" + Arrays.toString(artifacts), e);
+        }
+    }
+
+    /**
+     * Create temp pom.xml file with specified artifact coordinates.
+     *
+     * @param groupId    group id of artifact for pom.xml
+     * @param artifactId artifact id of artifact for pom.xml
+     * @param version    version id of artifact for pom.xml
+     * @return {@link java.io.File} with created pom.xml
+     * @throws AetherException if can't create temp file {@link java.io.File#createTempFile(String, String)}
+     *                         if can't marshall pom.xml to created temp file
+     */
+    protected File createPomFile(String groupId, String artifactId, String version) throws AetherException {
+        try {
+            File pom = File.createTempFile(AETHER_TEMP_FILE_PREFIX, POM_XML);
+            FluentModelBuilder.newPom()
+                    .withGroupId(groupId)
+                    .withArtifactId(artifactId)
+                    .withVersion(version)
+                    .withModelVersion(MODEL_VERSION)
+                    .marshalTo(pom);
+            return pom;
+        } catch (IOException e) {
+            throw new AetherException("Can't create temp file for pom.xml", e);
         }
     }
 

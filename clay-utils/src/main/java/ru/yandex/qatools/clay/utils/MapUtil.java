@@ -7,7 +7,11 @@ import java.util.Map;
  * @author Ilya Sadykov
  * @version $Date$ $Revision$
  */
-public class MapUtil {
+public final class MapUtil {
+
+    MapUtil() {
+    }
+
     /**
      * Creates the HashMap of Integers
      *
