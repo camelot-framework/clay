@@ -1,7 +1,5 @@
 package ru.yandex.qatools.clay;
 
-import org.eclipse.aether.RepositoryException;
-
 /**
  * @author Dmitry Baev charlie@yandex-team.ru
  *         Date: 24.07.14
@@ -14,9 +12,13 @@ import org.eclipse.aether.RepositoryException;
  *         {@link org.eclipse.aether.collection.DependencyCollectionException}
  */
 @SuppressWarnings("unused")
-public class AetherException extends RepositoryException {
+public class AetherException extends Exception {
     public AetherException(String message) {
         super(message);
+    }
+
+    public AetherException(Throwable cause) {
+        super(cause);
     }
 
     public AetherException(String message, Throwable cause) {
