@@ -202,7 +202,7 @@ public final class AetherUtils {
         builder.setAuthentication(session.getAuthenticationSelector().getAuthentication(prototype));
         builder.setProxy(session.getProxySelector().getProxy(prototype));
         builder.setMirroredRepositories(Arrays.asList(session.getMirrorSelector().getMirror(prototype)));
-        return prototypeBuilder.build();
+        return builder.build();
     }
 
     /**
@@ -219,7 +219,7 @@ public final class AetherUtils {
         builder.setAuthentication(session.getAuthenticationSelector().getAuthentication(prototype));
         builder.setProxy(session.getProxySelector().getProxy(prototype));
         builder.setMirroredRepositories(Arrays.asList(session.getMirrorSelector().getMirror(prototype)));
-        return prototypeBuilder.build();
+        return builder.build();
     }
 
     /**
@@ -239,7 +239,7 @@ public final class AetherUtils {
     /**
      * Convert {@link org.apache.maven.settings.RepositoryPolicy} to
      * {@link org.eclipse.aether.repository.RepositoryPolicy}
-     *
+     *p
      * @param policy the policy to convert, may be {@code null}
      */
     public static RepositoryPolicy transformPolicy(org.apache.maven.settings.RepositoryPolicy policy) {
