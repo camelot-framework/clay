@@ -31,12 +31,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static ru.yandex.qatools.clay.internal.AetherUtils.getRepositoriesAsList;
-import static ru.yandex.qatools.clay.internal.AetherUtils.newRepositorySystem;
-import static ru.yandex.qatools.clay.internal.AetherUtils.newSession;
-import static ru.yandex.qatools.clay.internal.AetherUtils.toRemoteRepository;
+import static ru.yandex.qatools.clay.internal.AetherUtils.*;
 
 /**
+ * @author Ilya Sadykov smecsia@yandex-team.ru
+ * @author Innokenty Shuvalov innokenty@yandex-team.ru
  * @author Dmitry Baev charlie@yandex-team.ru
  *         Date: 24.07.14
  */
