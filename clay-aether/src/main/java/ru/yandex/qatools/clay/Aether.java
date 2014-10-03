@@ -73,6 +73,10 @@ public class Aether {
     public static Aether aether(File localRepoDir, Settings settings) {
         return new Aether(localRepoDir, settings);
     }
+    
+    public static Aether aether(Settings settings) {
+        return new Aether(new File(settings.getLocalRepository()), settings);
+    }
 
     public static Aether aether(RepositorySystem system, RepositorySystemSession session, List<RemoteRepository> repositories) {
         return new Aether(system, session, repositories);
