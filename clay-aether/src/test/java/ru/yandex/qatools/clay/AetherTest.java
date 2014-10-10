@@ -31,6 +31,7 @@ import static ru.yandex.qatools.clay.maven.settings.FluentDistributionManagement
 import static ru.yandex.qatools.clay.maven.settings.FluentProfileBuilder.newProfile;
 import static ru.yandex.qatools.clay.maven.settings.FluentRepositoryBuilder.newRepository;
 import static ru.yandex.qatools.clay.maven.settings.FluentSettingsBuilder.newSettings;
+import static ru.yandex.qatools.clay.maven.settings.FluentSettingsBuilder.newSystemSettings;
 
 /**
  * @author Dmitry Baev charlie@yandex-team.ru
@@ -38,7 +39,7 @@ import static ru.yandex.qatools.clay.maven.settings.FluentSettingsBuilder.newSet
  */
 public class AetherTest {
 
-    public static final Settings MAVEN_SETTINGS = newSettings()
+    public static final Settings MAVEN_SETTINGS = newSystemSettings()
             .withActiveProfile(newProfile()
                     .withId("profile")
                     .withRepository(newRepository()
@@ -56,6 +57,11 @@ public class AetherTest {
     @Before
     public void setUp() throws Exception {
         localRepo = folder.newFolder();
+    }
+
+    @Test
+    public void createAetherTest() throws Exception {
+        aether(MAVEN_SETTINGS);
     }
 
     @Test

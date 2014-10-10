@@ -17,10 +17,20 @@ import java.io.File;
 @SuppressWarnings("JavaDoc")
 public class FluentSettingsBuilder {
 
+    public static final String M2_HOME = "M2_HOME";
+    public static final String USER_HOME = "user.home";
+    public static final String MAVEN_HOME = "maven.home";
+    public static final String TEMP_DIR = "java.io.tmpdir";
+
     private final Settings settings;
 
     private FluentSettingsBuilder(Settings settings) {
         this.settings = settings;
+        if (settings.getLocalRepository() == null) {
+            settings.setLocalRepository(String.format(
+                    "%s/.m2/repository",
+                    System.getProperty(USER_HOME, System.getProperty(TEMP_DIR, ""))));
+        }
     }
 
     public static FluentSettingsBuilder newSettings() {
@@ -40,22 +50,30 @@ public class FluentSettingsBuilder {
 
     /**
      * Looks for settings.xml at '${user.home}/.m2/settings.xml' and '$M2_HOME/conf/settings.xml'.
-     * {@see http://maven.apache.org/settings.html}
+     * {@see http://maven.apache.org/settings.html}. If can't find settings, returns {@link #newSettings()}
      *
-     * @throws SettingsBuildingException {@link org.apache.maven.settings.building.DefaultSettingsBuilder#build(org.apache.maven.settings.building.SettingsBuildingRequest)}
-     * @throws MavenNotFoundException if can't find Maven distribution
      */
-    public static FluentSettingsBuilder newSystemSettings() throws SettingsBuildingException, MavenNotFoundException {
-        String userHome = System.getProperty("user.home");
-        String m2home = System.getProperty("M2_HOME");
-        String path = null;
+    public static FluentSettingsBuilder newSystemSettings() {
+
+        String userHome = System.getProperty(USER_HOME);
         if (userHome != null) {
-            return newSettings(String.format("%s/.m2/settings.xml", userHome));
-        } else if (m2home != null) {
-            return newSettings(String.format("%s/conf/settings.xml", m2home));
-        } else {
-            throw new MavenNotFoundException("There are no Maven distribution");
+            String settingsPath = String.format("%s/.m2/settings.xml", userHome);
+            try {
+                return newSettings(settingsPath);
+            } catch (SettingsBuildingException ignored) {
+            }
         }
+
+        String m2home = System.getProperty(MAVEN_HOME, System.getProperty(M2_HOME));
+        if (m2home != null) {
+            String settingsPath = String.format("%s/conf/settings.xml", m2home);
+            try {
+                return newSettings(settingsPath);
+            } catch (SettingsBuildingException ignored) {
+            }
+        }
+
+        return newSettings();
     }
 
     public Settings build() {
