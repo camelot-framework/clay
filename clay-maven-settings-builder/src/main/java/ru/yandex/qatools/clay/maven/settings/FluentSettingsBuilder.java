@@ -10,6 +10,10 @@ import org.apache.maven.settings.building.DefaultSettingsBuildingRequest;
 import org.apache.maven.settings.building.SettingsBuildingException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+
+import static ru.yandex.qatools.clay.maven.settings.MavenDefaults.getDefaultLocalRepository;
+import static ru.yandex.qatools.clay.maven.settings.MavenDefaults.getDefaultSystemSettings;
 
 /**
  * @author innokenty
@@ -17,26 +21,54 @@ import java.io.File;
 @SuppressWarnings("JavaDoc")
 public class FluentSettingsBuilder {
 
-    public static final String M2_HOME = "M2_HOME";
-    public static final String USER_HOME = "user.home";
-    public static final String MAVEN_HOME = "maven.home";
-    public static final String TEMP_DIR = "java.io.tmpdir";
-
     private final Settings settings;
 
     private FluentSettingsBuilder(Settings settings) {
         this.settings = settings;
-        if (settings.getLocalRepository() == null) {
-            settings.setLocalRepository(String.format(
-                    "%s/.m2/repository",
-                    System.getProperty(USER_HOME, System.getProperty(TEMP_DIR, ""))));
-        }
     }
 
     public static FluentSettingsBuilder newSettings() {
-        return new FluentSettingsBuilder(new Settings());
+        Settings settings = new Settings();
+        settings.setLocalRepository(getDefaultLocalRepository());
+        return new FluentSettingsBuilder(settings);
     }
 
+    public static FluentSettingsBuilder loadSettings()
+            throws FileNotFoundException, SettingsBuildingException {
+        return loadSettings(getDefaultSystemSettings());
+    }
+
+    public static FluentSettingsBuilder loadSettings(String settingsFilePath)
+            throws FileNotFoundException, SettingsBuildingException {
+        return loadSettings(new File(settingsFilePath));
+    }
+
+    public static FluentSettingsBuilder loadSettings(File settingsFile)
+            throws FileNotFoundException, SettingsBuildingException {
+        if (settingsFile == null) {
+            throw new NullPointerException("Settings file can't be null");
+        }
+
+        if (!settingsFile.exists()) {
+            throw new FileNotFoundException(String.format("Settings file [%s] not found",
+                    settingsFile.getAbsoluteFile()));
+        }
+
+        DefaultSettingsBuildingRequest request = new DefaultSettingsBuildingRequest();
+        request.setGlobalSettingsFile(settingsFile);
+        Settings settings = new DefaultSettingsBuilderFactory()
+                .newInstance()
+                .build(request)
+                .getEffectiveSettings();
+
+        if (settings.getLocalRepository() == null) {
+            settings.setLocalRepository(getDefaultLocalRepository());
+        }
+
+        return new FluentSettingsBuilder(settings);
+    }
+
+    @Deprecated
     public static FluentSettingsBuilder newSettings(String settingsFilePath)
             throws SettingsBuildingException {
         DefaultSettingsBuildingRequest request = new DefaultSettingsBuildingRequest();
@@ -51,11 +83,11 @@ public class FluentSettingsBuilder {
     /**
      * Looks for settings.xml at '${user.home}/.m2/settings.xml' and '$M2_HOME/conf/settings.xml'.
      * {@see http://maven.apache.org/settings.html}. If can't find settings, returns {@link #newSettings()}
-     *
      */
+    @Deprecated
     public static FluentSettingsBuilder newSystemSettings() {
 
-        String userHome = System.getProperty(USER_HOME);
+        String userHome = System.getProperty(MavenDefaults.USER_HOME);
         if (userHome != null) {
             String settingsPath = String.format("%s/.m2/settings.xml", userHome);
             try {
@@ -64,7 +96,7 @@ public class FluentSettingsBuilder {
             }
         }
 
-        String m2home = System.getProperty(MAVEN_HOME, System.getProperty(M2_HOME));
+        String m2home = System.getProperty(MavenDefaults.MAVEN_HOME, System.getProperty(MavenDefaults.M2_HOME));
         if (m2home != null) {
             String settingsPath = String.format("%s/conf/settings.xml", m2home);
             try {
@@ -89,7 +121,14 @@ public class FluentSettingsBuilder {
      * @param localRepository
      */
     public FluentSettingsBuilder withLocalRepository(String localRepository) {
+        if (localRepository == null) return this;
         settings.setLocalRepository(localRepository);
+        return this;
+    }
+
+    public FluentSettingsBuilder withLocalRepository(File localRepository) {
+        if (localRepository == null) return this;
+        settings.setLocalRepository(localRepository.getAbsolutePath());
         return this;
     }
 
@@ -153,4 +192,5 @@ public class FluentSettingsBuilder {
         settings.setOffline(offline);
         return this;
     }
+
 }
