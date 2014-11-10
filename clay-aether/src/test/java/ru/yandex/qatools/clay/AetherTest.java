@@ -39,7 +39,7 @@ import static ru.yandex.qatools.clay.maven.settings.FluentSettingsBuilder.newSys
  */
 public class AetherTest {
 
-    public static final Settings MAVEN_SETTINGS = newSystemSettings()
+    public static final Settings MAVEN_SETTINGS = newSettings()
             .withActiveProfile(newProfile()
                     .withId("profile")
                     .withRepository(newRepository()
