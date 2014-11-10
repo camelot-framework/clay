@@ -10,7 +10,7 @@
 
     <groupId>ru.yandex.qatools.clay</groupId>
     <artifactId>clay</artifactId>
-    <version>2.2-SNAPSHOT</version>
+    <version>2.2</version>
     <packaging>pom</packaging>
 
     <modules>
