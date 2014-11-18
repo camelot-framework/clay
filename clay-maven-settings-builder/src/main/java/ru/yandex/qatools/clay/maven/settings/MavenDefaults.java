@@ -42,7 +42,7 @@ public class MavenDefaults {
             return new File(settingsPath).getAbsolutePath();
         }
 
-        throw new RuntimeException("Can't find default maven settings file");
+        return null;
     }
 
 }
