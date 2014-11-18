@@ -8,6 +8,7 @@ import org.apache.maven.settings.Settings;
 import org.apache.maven.settings.building.DefaultSettingsBuilderFactory;
 import org.apache.maven.settings.building.DefaultSettingsBuildingRequest;
 import org.apache.maven.settings.building.SettingsBuildingException;
+import org.codehaus.plexus.util.FileUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,7 +36,12 @@ public class FluentSettingsBuilder {
 
     public static FluentSettingsBuilder loadSettings()
             throws FileNotFoundException, SettingsBuildingException {
-        return loadSettings(getDefaultSystemSettings());
+        String settingsPath = getDefaultSystemSettings();
+        if (settingsPath != null && FileUtils.fileExists(settingsPath)) {
+            return loadSettings(settingsPath);
+        } else {
+            return newSettings();
+        }
     }
 
     public static FluentSettingsBuilder loadSettings(String settingsFilePath)
