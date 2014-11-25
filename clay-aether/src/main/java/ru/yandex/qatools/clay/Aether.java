@@ -37,7 +37,6 @@ import static ru.yandex.qatools.clay.internal.AetherUtils.*;
  * @author Ilya Sadykov smecsia@yandex-team.ru
  * @author Innokenty Shuvalov innokenty@yandex-team.ru
  * @author Dmitry Baev charlie@yandex-team.ru
- *         Date: 24.07.14
  */
 public class Aether {
 

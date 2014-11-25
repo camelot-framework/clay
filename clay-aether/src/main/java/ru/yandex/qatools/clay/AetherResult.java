@@ -10,7 +10,6 @@ import java.util.List;
 
 /**
  * @author Dmitry Baev charlie@yandex-team.ru
- *         Date: 28.07.14
  */
 public class AetherResult {
 

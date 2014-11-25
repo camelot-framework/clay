@@ -60,10 +60,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * Warning: it's not a part of public API
  * @author Dmitry Baev charlie@yandex-team.ru
- *         Date: 24.07.14
- *         <p/>
- *         Warning, it's not a part of public API.
  */
 public final class AetherUtils {
 
