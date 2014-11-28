@@ -32,6 +32,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.version>3.1.0</maven.version>
+        <java.version>1.7</java.version>
     </properties>
 
     <organization>
@@ -66,7 +67,7 @@
         </developer>
         <developer>
             <id>innokenty</id>
-            <name>Innokentii Shuvalov</name>
+            <name>Innokenty Shuvalov</name>
             <email>innokenty@yandex-team.ru</email>
             <organization>Yandex</organization>
         </developer>
@@ -110,8 +111,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
             <plugin>
