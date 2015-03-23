@@ -1,4 +1,4 @@
-package ru.qatools.clay;
+package ru.qatools.clay.aether;
 
 import org.eclipse.aether.resolution.ArtifactResult;
 
@@ -126,10 +126,10 @@ public class AetherResult {
     }
 
     /**
-     * Convert results to list using given {@link ru.qatools.clay.AetherResult.Converter}
+     * Convert results to list using given {@link AetherResult.Converter}
      *
      * @param converter   the converter
-     * @param failOnError true if you need to get {@link ru.qatools.clay.AetherException} on failure,
+     * @param failOnError true if you need to get {@link AetherException} on failure,
      *                    false otherwise
      * @return list of converted results
      * @throws AetherException if can't convert some result and {@code failOnError} is true
@@ -172,7 +172,7 @@ public class AetherResult {
          *
          * @param result to convert
          * @return converted result
-         * @throws ru.qatools.clay.AetherException if something went wrong
+         * @throws AetherException if something went wrong
          */
         T convert(ArtifactResult result) throws AetherException;
     }

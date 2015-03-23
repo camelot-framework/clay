@@ -1,4 +1,4 @@
-package ru.qatools.clay;
+package ru.qatools.clay.aether;
 
 /**
  * Thrown in case of a unresolvable artifacts.

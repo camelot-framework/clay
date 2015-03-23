@@ -1,4 +1,4 @@
-package ru.qatools.clay;
+package ru.qatools.clay.aether;
 
 import net.lightbody.bmp.proxy.ProxyServer;
 import org.apache.maven.settings.Proxy;
@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static ru.qatools.clay.Aether.aether;
+import static ru.qatools.clay.aether.Aether.aether;
 
 /**
  * @author Dmitry Baev charlie@yandex-team.ru

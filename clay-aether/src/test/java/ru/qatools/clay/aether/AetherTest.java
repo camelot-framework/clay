@@ -1,4 +1,4 @@
-package ru.qatools.clay;
+package ru.qatools.clay.aether;
 
 import org.apache.maven.model.DistributionManagement;
 import org.apache.maven.settings.Settings;
@@ -17,8 +17,7 @@ import java.util.jar.Manifest;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
-import static ru.qatools.clay.Aether.aether;
-import static ru.qatools.clay.DirectoryMatcher.contains;
+import static ru.qatools.clay.aether.Aether.aether;
 import static ru.qatools.clay.maven.settings.FluentDeploymentRepositoryBuilder.newDeploymentRepository;
 import static ru.qatools.clay.maven.settings.FluentDistributionManagementBuilder.newDistributionManagement;
 import static ru.qatools.clay.maven.settings.FluentSettingsBuilder.newSettings;
@@ -111,7 +110,7 @@ public class AetherTest extends AbstractAetherTest {
         aether(localRepo, mavenSettings).install(jar, "testGroupId", "testArtifactId", "testVersion");
 
         File artifactDirectory = directoryContains(localRepo, "testGroupId", "testArtifactId", "testVersion");
-        assertThat(artifactDirectory, contains("testArtifactId-testVersion.jar", "testArtifactId-testVersion.pom"));
+        assertThat(artifactDirectory, DirectoryMatcher.contains("testArtifactId-testVersion.jar", "testArtifactId-testVersion.pom"));
     }
 
     @Test
@@ -124,7 +123,7 @@ public class AetherTest extends AbstractAetherTest {
 
         aether(localRepo, mavenSettings).deploy(distributionManagement, jar, "testGroupId", "testArtifactId", "testVersion");
         File artifactDirectory = directoryContains(localRepo, "testGroupId", "testArtifactId", "testVersion");
-        assertThat(artifactDirectory, contains("testArtifactId-testVersion.jar", "testArtifactId-testVersion.pom"));
+        assertThat(artifactDirectory, DirectoryMatcher.contains("testArtifactId-testVersion.jar", "testArtifactId-testVersion.pom"));
     }
 
     private File createJar() throws IOException {

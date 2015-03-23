@@ -1,4 +1,4 @@
-package ru.qatools.clay.internal;
+package ru.qatools.clay.aether.internal;
 
 import org.apache.maven.repository.internal.DefaultArtifactDescriptorReader;
 import org.apache.maven.repository.internal.DefaultVersionRangeResolver;

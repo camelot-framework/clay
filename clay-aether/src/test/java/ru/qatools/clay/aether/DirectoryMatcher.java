@@ -1,4 +1,4 @@
-package ru.qatools.clay;
+package ru.qatools.clay.aether;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.NameFileFilter;
@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.core.IsNot.not;
 
 public class DirectoryMatcher {
+
     public static class Contains extends TypeSafeMatcher<File> {
 
         private String fileName;
@@ -45,9 +45,5 @@ public class DirectoryMatcher {
             result.add(new Contains(oneMore));
         }
         return allOf(result.toArray(new Contains[result.size()]));
-    }
-
-    public static Matcher notContains(String first, String... more) {
-        return not(contains(first, more));
     }
 }

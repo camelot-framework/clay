@@ -1,4 +1,4 @@
-package ru.qatools.clay;
+package ru.qatools.clay.aether;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.DistributionManagement;
@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static ru.qatools.clay.internal.AetherUtils.*;
+import static ru.qatools.clay.aether.internal.AetherUtils.*;
 
 /**
  * @author Ilya Sadykov smecsia@yandex-team.ru
@@ -162,7 +162,7 @@ public class Aether {
      * {@link org.eclipse.aether.RepositorySystem#resolveArtifacts(RepositorySystemSession, java.util.Collection)}.
      *
      * @param artifact The artifact to resolve, may be {@code null}.
-     * @return The resolution result {@link ru.qatools.clay.AetherResult}, never {@code null}.
+     * @return The resolution result {@link AetherResult}, never {@code null}.
      * @throws AetherException if can't resolve given artifact
      */
     protected AetherResult resolveWithTransitives(Artifact artifact) throws AetherException {
@@ -186,7 +186,7 @@ public class Aether {
      * that any relocations have already been processed.
      *
      * @param artifacts Collection of artifacts to resolve, never {@code null}.
-     * @return The resolution result {@link ru.qatools.clay.AetherResult}, never {@code null}.
+     * @return The resolution result {@link AetherResult}, never {@code null}.
      * @throws AetherException if can't resolve given artifact
      */
     protected AetherResult resolveWithoutTransitives(Artifact... artifacts) throws AetherException {

@@ -1,4 +1,4 @@
-package ru.qatools.clay;
+package ru.qatools.clay.aether;
 
 import org.apache.maven.settings.Settings;
 import org.junit.Before;
@@ -7,7 +7,7 @@ import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
 
-import static ru.qatools.clay.Aether.MAVEN_CENTRAL_URL;
+import static ru.qatools.clay.aether.Aether.MAVEN_CENTRAL_URL;
 import static ru.qatools.clay.maven.settings.FluentProfileBuilder.newProfile;
 import static ru.qatools.clay.maven.settings.FluentRepositoryBuilder.newRepository;
 import static ru.qatools.clay.maven.settings.FluentSettingsBuilder.newSettings;
