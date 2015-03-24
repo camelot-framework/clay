@@ -11,15 +11,14 @@
     <groupId>ru.yandex.qatools.clay</groupId>
     <artifactId>clay</artifactId>
     <version>2.4-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <name>Clay</name>
 
+    <packaging>pom</packaging>
     <modules>
-        <module>clay-maven-settings-builder</module>
         <module>clay-aether</module>
+        <module>clay-maven-settings-builder</module>
         <module>clay-utils</module>
     </modules>
-
-    <name>Clay</name>
 
     <scm>
         <connection>scm:git:git@github.com:camelot-framework/clay.git</connection>
@@ -54,8 +53,8 @@
     </issueManagement>
 
     <ciManagement>
-        <system>TeamCity</system>
-        <url>http://teamcity.qatools.ru/</url>
+        <system>Jenkins</system>
+        <url>http://jenkins.qatools.ru/</url>
     </ciManagement>
 
     <developers>
@@ -69,6 +68,18 @@
             <id>innokenty</id>
             <name>Innokenty Shuvalov</name>
             <email>innokenty@yandex-team.ru</email>
+            <organization>Yandex</organization>
+        </developer>
+        <developer>
+            <id>smecsia</id>
+            <name>Ilya Sadykov</name>
+            <email>smecsia@yandex-team.ru</email>
+            <organization>Yandex</organization>
+        </developer>
+        <developer>
+            <id>eroshenkoam</id>
+            <name>Artem Eroshenko</name>
+            <email>eroshenkoam@yandex-team.ru</email>
             <organization>Yandex</organization>
         </developer>
     </developers>
