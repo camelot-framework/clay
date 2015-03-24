@@ -1,7 +1,9 @@
 CLAY (Common LAYer module)
 =============
 
-[![release](http://github-release-version.herokuapp.com/github/camelot-framework/clay/release.svg?style=flat)](https://github.com/camelot-framework/clay/releases/latest) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/ru.yandex.qatools.clay/clay/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/ru.yandex.qatools.clay/clay)
+[![release](http://github-release-version.herokuapp.com/github/camelot-framework/clay/release.svg?style=flat)](https://github.com/camelot-framework/clay/releases/latest)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/ru.yandex.qatools.clay/clay/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/ru.yandex.qatools.clay/clay) 
+[![covarage](https://img.shields.io/sonar/http/sonar.qatools.ru/ru.yandex.qatools.clay:clay/coverage.svg?style=flat)](http://sonar.qatools.ru/dashboard/index/569)
 
 ## Clay Maven Settings Builder
 
