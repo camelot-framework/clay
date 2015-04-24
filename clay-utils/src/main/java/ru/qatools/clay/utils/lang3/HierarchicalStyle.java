@@ -1,6 +1,5 @@
 package ru.qatools.clay.utils.lang3;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.ArrayList;
@@ -8,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
 
 /**
  * @author Alexander Andryashin aandryashin@yandex-team.ru
@@ -16,19 +16,35 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class HierarchicalStyle extends ToStringStyle {
 
-    {
+    public static final List<String> DEFAULT_LEAF_PACKAGE_NAMES = Arrays.asList(
+            "java.lang"
+    );
+
+    private final List<String> leafPackageNames;
+
+    public HierarchicalStyle(final String... leafPackageNames) {
+        this(new ArrayList<String>(DEFAULT_LEAF_PACKAGE_NAMES) {{
+            addAll(Arrays.asList(leafPackageNames));
+        }});
+    }
+
+    protected HierarchicalStyle(HierarchicalStyle other) {
+        this(other.leafPackageNames);
+    }
+
+    protected HierarchicalStyle(List<String> leafPackageNames) {
+        this.leafPackageNames = leafPackageNames;
+
         setArrayContentDetail(true);
+        setArrayStart("[");
+        setArraySeparator(",");
+        setArrayEnd("]");
         setUseShortClassName(true);
         setUseIdentityHashCode(false);
         setUseFieldNames(true);
-    }
 
-    private final List<String> leafPackageNames = new ArrayList<String>() {{
-        add("java.lang");
-    }};
-
-    public HierarchicalStyle(String... leafPackageNames) {
-        this.leafPackageNames.addAll(Arrays.asList(leafPackageNames));
+        setContentStart("{");
+        setContentEnd("}");
     }
 
     private boolean isLeaf(Object value) {
@@ -46,8 +62,12 @@ public class HierarchicalStyle extends ToStringStyle {
         if (isLeaf(value)) {
             buffer.append(value);
         } else {
-            buffer.append(ReflectionToStringBuilder.toString(value, this));
+            appendNode(buffer, fieldName, value);
         }
+    }
+
+    protected StringBuffer appendNode(StringBuffer buffer, String fieldName, Object value) {
+        return buffer.append(reflectionToString(value, this));
     }
 
     @Override
