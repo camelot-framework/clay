@@ -19,6 +19,7 @@ import static org.junit.Assert.assertThat;
 import static ru.qatools.clay.aether.Aether.aether;
 
 /**
+ * TODO fix and enable this test
  * Was unable to make it work on ipv6-only machine
  * @author Dmitry Baev charlie@yandex-team.ru
  *         Date: 24.07.14
