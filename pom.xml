@@ -10,7 +10,7 @@
 
     <groupId>ru.yandex.qatools.clay</groupId>
     <artifactId>clay</artifactId>
-    <version>2.5-SNAPSHOT</version>
+    <version>2.5</version>
     <name>Clay</name>
 
     <packaging>pom</packaging>
@@ -24,7 +24,8 @@
         <connection>scm:git:git@github.com:camelot-framework/clay.git</connection>
         <developerConnection>scm:git:git@github.com:camelot-framework/clay.git</developerConnection>
         <url>https://github.com/camelot-framework/clay</url>
-    </scm>
+      <tag>clay-2.5</tag>
+  </scm>
 
     <url>https://github.com/camelot-framework/clay</url>
 
